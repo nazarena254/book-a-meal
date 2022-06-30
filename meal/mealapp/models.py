@@ -11,7 +11,7 @@ class CustomUser(AbstractUser):
     is_caterer = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.username      
+        return self.username
 
 class Customer(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
