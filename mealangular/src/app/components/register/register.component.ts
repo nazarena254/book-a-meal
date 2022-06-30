@@ -7,11 +7,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  Roles: any = ['Customer', 'Caterer'];
+  roleSelected : any;
+
+  Roles: any =[
+    { name: "Caterer", value: 'caterer' },
+    { name: "Customer", value: 'customer' }
+  ];
+  
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  changeClient(value: any) {
+    this.roleSelected = value;
+    console.log(value);
+}
+
+
+  createUser(credentials: any){
+    alert(this.roleSelected.value);
   }
 
 }

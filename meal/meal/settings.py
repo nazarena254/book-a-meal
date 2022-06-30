@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'mealapp',
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -56,6 +57,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:8081',
+)
 
 ROOT_URLCONF = 'meal.urls'
 
