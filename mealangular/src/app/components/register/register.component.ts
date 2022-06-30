@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthUserService } from 'src/app/services/auth-user.service';
 
 @Component({
   selector: 'app-register',
@@ -7,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  roleSelected : any;
+  is_caterer : any;
+  is_customer: any;
 
   Roles: any =[
     { name: "Caterer", value: 'caterer' },
@@ -15,19 +17,32 @@ export class RegisterComponent implements OnInit {
   ];
   
 
-  constructor() { }
+  constructor(private service: AuthUserService) { }
 
   ngOnInit(): void {
   }
 
   changeClient(value: any) {
-    this.roleSelected = value;
-    console.log(value);
+    if (value.value == 'caterer') {
+      this.is_caterer = true;
+      this.is_customer = false;
+    } else{
+      this.is_caterer = false;
+      this.is_customer = true;
+    }
 }
 
 
   createUser(credentials: any){
-    alert(this.roleSelected.value);
-  }
 
+    this.service.createUser(credentials.username, credentials.email, credentials.password, this.is_caterer, this.is_customer).subscribe(
+      (data: any) => {
+        console.log(data);
+      })
+
+      window.location.href = '/login';
+
+    }
+
+    
 }
