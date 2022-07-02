@@ -12,3 +12,5 @@ class CustomUserAdmin(UserAdmin):
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Customer)
 admin.site.register(Caterer)
+admin.site.register(Menu)
+admin.site.register(Option)

@@ -19,4 +19,16 @@ class Customer(models.Model):
 class Caterer(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
 
+class Menu(models.Model):
+    name = models.CharField(max_length=300)
+    description = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+class Option(models.Model):
+    name = models.CharField(max_length=1000)
+    price = models.FloatField()
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
 

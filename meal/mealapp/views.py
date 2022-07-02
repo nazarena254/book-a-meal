@@ -5,6 +5,7 @@ from .models import *
 from rest_framework.views import APIView
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import generics
 
 # Create your views here.
 class ProfileView(APIView):
@@ -34,3 +35,10 @@ class CustomerView(APIView):
             serializerdata.save()
             return Response(serializerdata.data)
         return Response(serializerdata.errors)
+
+class MenuView(generics.ListAPIView):
+
+    serializer_class = MenuSerializer
+
+    queryset = Menu.objects.all()
+    
