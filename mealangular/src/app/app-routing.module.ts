@@ -7,7 +7,6 @@ import { MenuComponent } from './components/menu/menu.component';
 import { LandingComponent } from './components/landing/landing.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: 'login', component: LogInComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
