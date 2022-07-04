@@ -17,9 +17,9 @@ class CatererSerializer(ModelSerializer):
         model = Caterer
         fields = '__all__'
 
-class OptionSerializer(ModelSerializer):
+class OrderSerializer(ModelSerializer):
     class Meta:
-        model = Option
+        model = Order
         fields = '__all__'
 
 class MenuSerializer(ModelSerializer):

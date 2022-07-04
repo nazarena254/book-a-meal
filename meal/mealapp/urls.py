@@ -5,6 +5,7 @@ from .import views
 urlpatterns = [
     path('api/v1/customers/', views.CustomerView.as_view()),
     path('accounts/profile/', views.ProfileView.as_view()),
+    path('api/auth/', views.CustomAuthToken.as_view()),
     path('api/menu/', views.MenuView.as_view()),
 ]
 
