@@ -5,3 +5,4 @@ Pipfile.lock
 Pipfile
 *.pyc
 __pycache__
+.vscode

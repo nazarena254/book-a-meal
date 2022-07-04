@@ -45,9 +45,6 @@ INSTALLED_APPS = [
     'django_filters',
 ]
 
-# CORS_ORIGIN_ALLOW_ALL = True
-
-
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -60,6 +57,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL = False
+# CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:8081',
 )
@@ -149,4 +147,4 @@ REST_FRAMEWORK = {
     ]
 }
 
-# LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
