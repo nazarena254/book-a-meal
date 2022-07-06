@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     'django_filters',
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True
+
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -58,8 +61,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = False
-# CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = False
+
+ALLOWED_HOSTS = ['*']
+
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:4200',
     "http://127.0.0.1:4200",
@@ -68,6 +73,12 @@ CORS_ORIGIN_WHITELIST = (
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
     "http://127.0.0.1:4200",
+]
+
+CORS_ALLOWED_METHODS = [
+    'PUT',
+    'GET',
+    'POST'
 ]
 
 ROOT_URLCONF = 'meal.urls'
@@ -155,4 +166,4 @@ REST_FRAMEWORK = {
     ]
 }
 
-LOGIN_REDIRECT_URL = '/'
+# LOGIN_REDIRECT_URL = '/'

@@ -12,6 +12,14 @@ class CustomerSerializer(ModelSerializer):
         model = Customer
         fields = '__all__'
 
+    def create(self, validated_data):
+        user_data = validated_data.pop('account')
+        print(user_data)
+        user = CustomUser.objects.create(**user_data)
+        customer = Customer.objects.create(account=user, **validated_data)
+        return customer
+        
+
 class CatererSerializer(ModelSerializer):
     class Meta:
         model = Caterer

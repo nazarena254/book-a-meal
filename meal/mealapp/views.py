@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from .serializers import *
 from .models import *
 from rest_framework.views import APIView
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -11,7 +11,7 @@ from rest_framework.authtoken.models import Token
 
 # Create your views here.
 class ProfileView(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None):

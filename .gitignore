@@ -1,5 +1,9 @@
-venv/
-db*
-*pyc
-.env
 node_modules
+venv
+.env
+db.sqlite3
+Pipfile.lock
+Pipfile
+*.pyc
+__pycache__
+.vscode

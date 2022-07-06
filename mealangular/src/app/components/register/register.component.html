@@ -3,7 +3,14 @@
         <mat-card-header class="mb-3">
             <mat-card-title>Register</mat-card-title>
         </mat-card-header>
-        <form #userCredentials = "ngForm" class="example-form" (ngSubmit)="createUser(userCredentials.value)" aria-required="true">
+        <!-- <form #userCredentials = "ngForm" class="example-form" (ngSubmit)="createUser(userCredentials.value)" aria-required="true"> -->
+        <form
+            *ngIf="!isSuccessful"
+            name="form"
+            (ngSubmit)="f.form.valid && onSubmit()"
+            #f="ngForm"
+            novalidate
+          >
             <mat-card-content>
                 <mat-form-field class="example-full-width">
                     

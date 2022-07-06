@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs';
+import { Observable } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -17,8 +18,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  loginUser(email: string, password: string){
-    return this.http.post<any>(this.api_url + 'api/auth', 
+  loginUser(email: string, password: string):Observable<any>{
+    return this.http.post<any>(this.api_url + 'api-auth/', 
     { email, password}, httpOptions).pipe(
       map(user => {
         if (user) {
@@ -27,6 +28,13 @@ export class AuthService {
         return user;
       })
     );
+  }
+  register(username: string, email: string, password: string): Observable<any> {
+    return this.http.post(this.api_url + 'api-auth/', {
+      username,
+      email,
+      password
+    }, httpOptions);
   }
   logout(){
     localStorage.removeItem('currentUser');
