@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PublicService } from './services/public.service';
+import { TokenStorageService } from './services/token-storage.service';
 
 declare var fixNav: any
 
@@ -11,17 +12,24 @@ declare var fixNav: any
 export class AppComponent {
   title = 'Book A Meal - The World\'s Best Food Delivery Site!';
   msg: any;
-  constructor (private pService: PublicService) {
+  isLoggedIn: boolean = false;
+  constructor (private pService: PublicService, public tokenStorage: TokenStorageService) {
 
   }
   ngOnInit(): void {
-    this.showMessage();
-    new fixNav();
+   
+
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+    }
+
+    console.log(this.isLoggedIn);
+  
   }
-  showMessage() {
-  this.pService.getMessage().subscribe(data=>{
-    this.msg = data,
-    console.log(this.msg);
-  });
+
+  LogOut(){
+    this.tokenStorage.signOut();
+    window.location.reload();
   }
+
 }

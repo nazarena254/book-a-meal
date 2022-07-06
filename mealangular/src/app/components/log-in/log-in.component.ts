@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms'; 
-import { Router } from '@angular/router';
-import { first } from 'rxjs';
+import { catchError, first, throwError } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 
@@ -13,58 +12,53 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 export class LogInComponent implements OnInit {
   
   myForm!: FormGroup;
-  isLoggedIn = false;
-  isLoginFailed = false;
-  roles: string[]=[];
-  errorMessage = " ";
+  isLoggedIn: boolean = false;
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private route: Router) { }
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
     this.myForm = new FormGroup({
-      email: new FormControl(''),
-      password: new FormControl('')
+      username: new FormControl(''),
+      password: new FormControl(''),
+      submit: new FormControl('Login'),
     })
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.roles = this.tokenStorage.getUser().username;
     }
+
+    console.log(this.isLoggedIn);
+
+    if (this.isLoggedIn) {
+      this.myForm.disable();
+    }
+  
   }
 
-
+  Logout(){
+    this.authService.logout();
+    this.tokenStorage.signOut();
+    window.location.reload();
+  }
 
   get f(){
     return this.myForm.controls;
   }
-  onSubmit() {
-    console.log(this.f['email'].value, this.f['password'].value);
-    
-    const data = {
-      email: this.f['email'].value,
-      password: this.f['password'].value
-    }
-    this.authService.loginUser(this.f['email'].value, this.f['password'].value).pipe(first()).subscribe(
-        data => {                
-          this.tokenStorage.saveToken(data);
-          this.tokenStorage.saveUser(data);
-          this.isLoginFailed = false;
-          this.isLoggedIn = true;
-          this.roles = this.tokenStorage.getUser().username;
-          this.route.navigate(['/']);
-          this.reloadPage();
-        },
-        err => {
-          this.errorMessage = err.error.message;
-          this.isLoginFailed = true;
-        }
-    )
-    console.log("Works!");
+
+  handleError(error: any) {
+    alert(error.error[Object.keys(error.error)[0]]);
+    return throwError(error);
   }
 
-  reloadPage(){
-    window.location.reload();
+
+  onSubmit() {
+    this.authService.loginUser(this.f['username'].value, this.f['password'].value).pipe(catchError(this.handleError), first()).subscribe(
+      data => {
+        this.tokenStorage.saveToken(data.token);
+        window.location.href = '/landing';
+      }
+      
+    )
+    
   }
 
 }
-
-

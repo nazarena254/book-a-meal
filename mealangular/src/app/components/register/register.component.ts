@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
+import { FormGroup, FormControl } from '@angular/forms';
+import { catchError, throwError } from 'rxjs';
+import { AuthUserService } from 'src/app/services/auth-user.service';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
   selector: 'app-register',
@@ -9,17 +11,12 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  is_caterer : any;
-  is_customer: any;
+  is_superuser : any;
   isSuccessful = false;
   isSignUpFailed = false;
-  errorMessage = ""
-  form: any = {
-    username: null,
-    email: null,
-    password: null
-  };
-
+  isLoggedIn: boolean = false;
+  form: any;
+  myGroup !: FormGroup;
 
 
 
@@ -27,55 +24,70 @@ export class RegisterComponent implements OnInit {
     { name: "Caterer", value: 'caterer' },
     { name: "Customer", value: 'customer' }
   ];
-  
 
-  constructor(private authService: AuthService) { }
+  handleError(error: any) {
+    alert(error.error[Object.keys(error.error)[0]]);
+    return throwError(error);
+  }
+
+
+  constructor(private service: AuthUserService, private tokenStorage:TokenStorageService) { }
 
   ngOnInit(): void {
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+    }
+
+    this.myGroup = new FormGroup({
+      username: new FormControl(''),
+      email: new FormControl(''),
+      password: new FormControl(''),
+      role: new FormControl(''),
+      submit: new FormControl('Register'),
+    })
+
+    if (this.isLoggedIn) {
+      this.myGroup.disable();
+   }
+    
   }
 
   changeClient(value: any) {
     if (value.value == 'caterer') {
-      this.is_caterer = true;
-      this.is_customer = false;
+      this.is_superuser = true;
     } else{
-      this.is_caterer = false;
-      this.is_customer = true;
+      this.is_superuser = false;
     }
 }
-  get f(){
-    return this.form.controls;
-  }
-onSubmit(): void {
-  // const data = {
-  //   email: this.f['email'].value,
-  //   password: this.f['password'].value,
-  //   username: this.f['username'].value
-  // }
-  const { username, email, password } = this.form;
-  this.authService.register(username, email, password).subscribe(
+onSubmit(credentials: any): void {
+
+  
+  this.service.createUser(credentials.username, credentials.email, credentials.password, this.is_superuser).pipe(catchError(this.handleError)).subscribe(
     data => {
-      console.log(data);
       this.isSuccessful = true;
       this.isSignUpFailed = false;
-    },
-    err => {
-      this.errorMessage = err.error.message;
-      this.isSignUpFailed = true;
+      if (data.is_superuser == false) {
+        this.service.createCustomer(data.id).pipe(catchError(this.handleError)).subscribe(
+          ids => {
+            console.log(ids);
+          })
+      } else{
+        this.service.createCaterer(data.id).pipe(catchError(this.handleError)).subscribe(
+          ids => {
+            console.log(ids);
+          })
+      }
+      window.location.href = '/login';
     }
-  );
-}
+  )
 
-  // createUser(credentials: any){
-
-  //   this.service.createUser(credentials.username, credentials.email, credentials.password, this.is_caterer, this.is_customer).subscribe(
-  //     (data: any) => {
-  //       console.log(data);
-  //     })
-
-  //     window.location.href = '/login';
-
-  //   }
-
+  }
     
 }
+
+
+
+
+
+    
+ 

@@ -4,23 +4,16 @@
   <nav>
     <ul style="display: flex; list-style-type: none;">
       <li style="margin-right:5px;">
-        <a mat-button mat-raised-button routerLink="landing" routerLinkActive="active">Home</a>
-        <a mat-button mat-raised-button routerLink="register" routerLinkActive="active">Register</a>
-        <a mat-button routerLink="login" routerLinkActive="active">Log in</a>
-        <a mat-button mat-raised-button routerLink="menu" routerLinkActive="active">Menu</a>
+        <a *ngIf="isLoggedIn==true" mat-button mat-raised-button routerLink="landing" routerLinkActive="active">Home</a>
+        <a *ngIf="isLoggedIn==false" mat-button mat-raised-button routerLink="register" routerLinkActive="active">Register</a>
+        <a *ngIf="isLoggedIn==false" mat-button routerLink="login" routerLinkActive="active">Log in</a>
+        <a *ngIf="isLoggedIn==true" mat-button mat-raised-button routerLink="menu" routerLinkActive="active">Menu</a>
+        <a *ngIf="isLoggedIn==true" mat-button mat-raised-button (click)="LogOut()">Logout</a>
       </li>
     </ul>
   </nav>
 
 </mat-toolbar>
-
-
-<!-- <span class="nav-tool-items">
-  <a mat-button routerLink="login" routerLinkActive="active">Log in</a>
-  <a mat-button mat-raised-button routerLink="register" routerLinkActive="active">Register</a>
-  <a mat-button mat-raised-button routerLink="profile" routerLinkActive="active">Profile</a>
-  <a mat-button mat-raised-button routerLink="menu" routerLinkActive="active">Menu</a>
-</span> -->
 
 
 <router-outlet></router-outlet>
