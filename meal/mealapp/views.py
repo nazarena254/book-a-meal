@@ -16,7 +16,7 @@ class ProfileView(APIView):
 
     def get(self, request, format=None):
         content = {
-            'user': str(request.user),  # `django.contrib.auth.User` instance.
+            'user': str(request.user.email),  # `django.contrib.auth.User` instance.
             'auth': str(request.auth),  # None
         }
         return Response(content)
@@ -61,3 +61,8 @@ class MenuView(generics.ListCreateAPIView):
 
     queryset = Menu.objects.all()
 
+class OrderView(generics.ListCreateAPIView):
+
+    serializer_class = OrderSerializer
+
+    queryset = Order.objects.all()

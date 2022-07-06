@@ -7,6 +7,7 @@ urlpatterns = [
     path('accounts/profile/', views.ProfileView.as_view()),
     path('api/auth/', views.CustomAuthToken.as_view()),
     path('api/menu/', views.MenuView.as_view()),
+    path('api/order/', views.OrderView.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
