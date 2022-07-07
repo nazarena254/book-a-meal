@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms'; 
-import { first } from 'rxjs';
+import { catchError, first, throwError } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
   selector: 'app-log-in',
@@ -11,27 +12,52 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LogInComponent implements OnInit {
   
   myForm!: FormGroup;
+  isLoggedIn: boolean = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
     this.myForm = new FormGroup({
-      email: new FormControl(''),
-      password: new FormControl('')
+      username: new FormControl(''),
+      password: new FormControl(''),
+      submit: new FormControl('Login'),
     })
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+    }
+
+    console.log(this.isLoggedIn);
+
+    if (this.isLoggedIn) {
+      this.myForm.disable();
+    }
+  
+  }
+
+  Logout(){
+    this.authService.logout();
+    this.tokenStorage.signOut();
+    window.location.reload();
   }
 
   get f(){
     return this.myForm.controls;
   }
+
+  handleError(error: any) {
+    alert(error.error[Object.keys(error.error)[0]]);
+    return throwError(error);
+  }
+
+
   onSubmit() {
-    this.authService.loginUser(this.f['email'].value, this.f['password'].value).pipe(first()).subscribe(
+    this.authService.loginUser(this.f['username'].value, this.f['password'].value).pipe(catchError(this.handleError), first()).subscribe(
       data => {
-        console.log(data);
+        this.tokenStorage.saveToken(data.token);
+        window.location.href = '';
       }
       
     )
-    
   }
 
 }

@@ -1,22 +1,28 @@
+from urllib import request
 from django.shortcuts import render
 from rest_framework.response import Response
+from .email import send_welcome_email
 from .serializers import *
 from .models import *
 from rest_framework.views import APIView
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated,AllowAny, IsAdminUser
 from rest_framework import generics
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAdminUser
+from .permissions import IsAdminOrReadOnly
+from django.core.mail import send_mail
+
 
 # Create your views here.
 class ProfileView(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None):
         content = {
-            'user': str(request.user),  # `django.contrib.auth.User` instance.
+            'user': str(request.user.email),  # `django.contrib.auth.User` instance.
             'auth': str(request.auth),  # None
         }
         return Response(content)
@@ -32,32 +38,83 @@ class CustomAuthToken(ObtainAuthToken):
         return Response({
             'token': token.key,
             'username': user.username,
-            'first_name': user.first_name,
             'user_id': user.pk,
-            'email': user.email
+            'email': user.email,
+            'is_superuser': user.is_superuser,
         })
 
 
-class CustomerView(APIView):
-    
+class UserView(APIView):
+
+    permission_classes = [AllowAny]
+
     def get(self, request, format=None):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
 
-        customers = CustomUser.objects.all()
-
-        serializerdata = CustomUserSerializer(customers, many=True)
-
-        return Response(serializerdata.data)
-    
     def post(self, request, format=None):
-        serializerdata = CustomUserSerializer(data=request.data)
-        if serializerdata.is_valid():
-            serializerdata.save()
-            return Response(serializerdata.data)
-        return Response(serializerdata.errors)
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+    
 
-class MenuView(generics.ListCreateAPIView):
 
-    serializer_class = MenuSerializer
+class MenuView(APIView):
+
+    permission_classes = [IsAdminOrReadOnly]
 
     queryset = Menu.objects.all()
+    permission_classes = [IsAdminUser]
 
+class OrderView(generics.ListCreateAPIView):
+
+    serializer_class = OrderSerializer
+
+    queryset = Menu.objects.all()    
+    def get(self, request, format=None):
+        queryset = Menu.objects.all()
+        serializer = MenuSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = MenuSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+
+class CustomerView(APIView):
+
+    def get(self, request, format=None):
+        queryset = Customer.objects.all()
+        serializer = CustomerSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = CustomerSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+class CatererView(APIView):
+
+    def get(self, request, format=None):
+        queryset = Caterer.objects.all()
+        serializer = CatererSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = CatererSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+
+class OrderView(generics.ListCreateAPIView):
+
+    serializer_class = OrderSerializer
+
+    queryset = Order.objects.all()
