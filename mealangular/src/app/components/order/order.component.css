@@ -8,6 +8,12 @@
     background-position: bottom center;
 }
 
-.menu-section{
-    padding: 5% 8%;
+.half{
+    padding: 3% 7%;
+    overflow-x: hidden;
+}
+
+.order-page{
+    overflow-y: hidden;
+    min-height: 100vh;
 }

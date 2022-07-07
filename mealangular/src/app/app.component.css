@@ -1,4 +1,4 @@
-h2:hover{
+/* h2:hover{
     background: yellow;
     color: white;
 }
@@ -7,4 +7,66 @@ h2:hover{
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+} */
+.menu1-img{
+    content: " ";
+    height: 130px;
+    width: 130px;
+    background-image: url('https://images.unsplash.com/photo-1514326640560-7d063ef2aed5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom center;
+}
+
+.nav-container{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.nav{
+    position: fixed;
+    background-color: #fff;
+    box-shadow:0 2px 10px #FB6357B4;
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: all 0.3s ease-in-out;
+    z-index: 100;
+}
+.nav .nav-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    transition: 0.3s ease-in-out;
+}
+.nav ul{
+    display: flex;
+    list-style-type: none;
+    align-items: center;
+    justify-content: center;
+}
+.nav a{
+    color: #000;
+    text-decoration: none;
+    padding: 7px 15px;
+    transition: 0.3s ease-in-out;
+}
+.nav.active{
+    background-color: #fff;
+    box-shadow:0 2px 10px rgba(0, 0, 0, 0.3);
+}
+.nav.active a{
+    color: #000;
+}
+.nav.active .nav-container{
+    padding: 10px 0;
+}
+.nav a.current, .nav a:hover{
+    color: #FB6357;
+    font-weight: bold;
+    transition: 0.1s ease-in;
+}
+.logo{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
 }

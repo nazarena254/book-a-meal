@@ -1,14 +1,18 @@
+from urllib import request
 from django.shortcuts import render
 from rest_framework.response import Response
+from .email import send_welcome_email
 from .serializers import *
 from .models import *
 from rest_framework.views import APIView
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
-from rest_framework.permissions import IsAuthenticated,AllowAny
+from rest_framework.permissions import IsAuthenticated,AllowAny, IsAdminUser
 from rest_framework import generics
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAdminUser
+from .permissions import IsAdminOrReadOnly
+from django.core.mail import send_mail
 
 
 # Create your views here.
@@ -40,17 +44,27 @@ class CustomAuthToken(ObtainAuthToken):
         })
 
 
-class UserView(generics.ListCreateAPIView):
+class UserView(APIView):
 
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
     permission_classes = [AllowAny]
+
+    def get(self, request, format=None):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
     
 
 
-class MenuView(generics.ListCreateAPIView):
+class MenuView(APIView):
 
-    serializer_class = MenuSerializer
+    permission_classes = [IsAdminOrReadOnly]
 
     queryset = Menu.objects.all()
     permission_classes = [IsAdminUser]
@@ -60,6 +74,17 @@ class OrderView(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
 
     queryset = Menu.objects.all()    
+    def get(self, request, format=None):
+        queryset = Menu.objects.all()
+        serializer = MenuSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = MenuSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
 
 class CustomerView(APIView):
 
@@ -88,4 +113,8 @@ class CatererView(APIView):
         return Response(serializer.data)
 
 
+class OrderView(generics.ListCreateAPIView):
 
+    serializer_class = OrderSerializer
+
+    queryset = Order.objects.all()

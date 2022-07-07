@@ -36,13 +36,13 @@ class CatererSerializer(ModelSerializer):
         model = Caterer
         fields = '__all__'
 
-class MenuSerializer(ModelSerializer):
-    class Meta:
-        model = Menu
-        fields = '__all__'
-
 class OrderSerializer(ModelSerializer):
     class Meta:
         model = Order
-        fields = '__all__'        
+        fields = '__all__'
 
+class MenuSerializer(ModelSerializer):
+    class Meta:
+        model = Menu
+        fields = ('id', 'image', 'name', 'description', 'price', 'date')
+        extra_kwargs = {'price': {'required': True}, 'image': {'required': True}}

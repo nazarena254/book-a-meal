@@ -54,7 +54,7 @@ export class LogInComponent implements OnInit {
     this.authService.loginUser(this.f['username'].value, this.f['password'].value).pipe(catchError(this.handleError), first()).subscribe(
       data => {
         this.tokenStorage.saveToken(data.token);
-        window.location.href = '/landing';
+        window.location.href = '';
       }
       
     )
