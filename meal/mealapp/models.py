@@ -29,14 +29,10 @@ class Menu(models.Model):
         return self.name
 
 class Order(models.Model):
-    name = models.CharField(max_length=1000)
     price = models.DecimalField(max_digits=5, decimal_places=2, null=True)
     menu = models.ManyToManyField(Menu, related_name='orders')
     date = models.DateTimeField(auto_now_add=True)
-    email = models.CharField(max_length=50, blank=True)
-    street = models.CharField(max_length=50, blank=True)
-    city = models.CharField(max_length=50, blank=True)
-    state = models.CharField(max_length=15, blank=True)
-    zip_code = models.IntegerField(blank=True, null=True)
+    
+    
     
 
