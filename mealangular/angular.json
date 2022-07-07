@@ -69,10 +69,12 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "mealangular:build:production"
+              "browserTarget": "mealangular:build:production",
+              "proxyConfig": "src/proxy.conf.json"
             },
             "development": {
-              "browserTarget": "mealangular:build:development"
+              "browserTarget": "mealangular:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
@@ -80,8 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "mealangular:build",
-            "proxyConfig": "src/proxy.conf.json"
+            "browserTarget": "mealangular:build"
           }
         },
         "test": {

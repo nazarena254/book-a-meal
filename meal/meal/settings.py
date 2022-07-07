@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 from decouple import config
 import os
+import cloudinary, cloudinary.api, cloudinary.uploader
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -45,9 +46,10 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'django_filters',
+    'cloudinary',
 ]
 
-# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 MIDDLEWARE = [
@@ -61,15 +63,22 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = False
+# CORS_ORIGIN_ALLOW_ALL = False
+
+ALLOWED_HOSTS = ['*']
+
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:4200',
-    "http://127.0.0.1:4200",
+    'http://localhost:8081'
 )
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:4200",
-    "http://127.0.0.1:4200",
+    'http://localhost:8081',
+]
+
+CORS_ALLOWED_METHODS = [
+    'PUT',
+    'GET',
+    'POST'
 ]
 
 ROOT_URLCONF = 'meal.urls'
@@ -143,12 +152,16 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+cloudinary_config = {
+    'cloud_name': config('CLOUDINARY_CLOUD_NAME'),
+    'api_key': config('CLOUDINARY_API_KEY'),
+    'api_secret': config('CLOUDINARY_API_SECRET'),
+}
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-AUTH_USER_MODEL = 'mealapp.CustomUser'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
