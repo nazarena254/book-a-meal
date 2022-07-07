@@ -66,13 +66,11 @@ MIDDLEWARE = [
 ALLOWED_HOSTS = ['*']
 
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:4200',
-    "http://127.0.0.1:4200",
+    'http://localhost:8081'
 )
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:4200",
-    "http://127.0.0.1:4200",
+    'http://localhost:8081',
 ]
 
 CORS_ALLOWED_METHODS = [
@@ -152,12 +150,16 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+cloudinary_config = {
+    'cloud_name': config('CLOUDINARY_CLOUD_NAME'),
+    'api_key': config('CLOUDINARY_API_KEY'),
+    'api_secret': config('CLOUDINARY_API_SECRET'),
+}
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-AUTH_USER_MODEL = 'mealapp.CustomUser'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

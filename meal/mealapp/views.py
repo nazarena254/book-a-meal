@@ -4,10 +4,11 @@ from .serializers import *
 from .models import *
 from rest_framework.views import APIView
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework import generics
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
+
 
 # Create your views here.
 class ProfileView(APIView):
@@ -32,32 +33,51 @@ class CustomAuthToken(ObtainAuthToken):
         return Response({
             'token': token.key,
             'username': user.username,
-            'first_name': user.first_name,
             'user_id': user.pk,
-            'email': user.email
+            'email': user.email,
+            'is_superuser': user.is_superuser,
         })
 
 
-class CustomerView(APIView):
+class UserView(generics.ListCreateAPIView):
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [AllowAny]
     
-    def get(self, request, format=None):
-
-        customers = CustomUser.objects.all()
-
-        serializerdata = CustomUserSerializer(customers, many=True)
-
-        return Response(serializerdata.data)
-    
-    def post(self, request, format=None):
-        serializerdata = CustomUserSerializer(data=request.data)
-        if serializerdata.is_valid():
-            serializerdata.save()
-            return Response(serializerdata.data)
-        return Response(serializerdata.errors)
+   
 
 class MenuView(generics.ListCreateAPIView):
 
     serializer_class = MenuSerializer
 
     queryset = Menu.objects.all()
+
+class CustomerView(APIView):
+
+    def get(self, request, format=None):
+        queryset = Customer.objects.all()
+        serializer = CustomerSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = CustomerSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+class CatererView(APIView):
+
+    def get(self, request, format=None):
+        queryset = Caterer.objects.all()
+        serializer = CatererSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = CatererSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+    
 
