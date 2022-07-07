@@ -18,7 +18,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   loginUser(email: string, password: string){
-    return this.http.post<any>(this.api_url + 'api/auth', 
+    return this.http.post<any>(this.api_url + 'api/auth/', 
     { email, password}, httpOptions).pipe(
       map(user => {
         if (user) {
