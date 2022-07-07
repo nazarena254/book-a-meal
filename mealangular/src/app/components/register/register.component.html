@@ -7,28 +7,34 @@
         <form
             *ngIf="!isSuccessful"
             name="form"
-            (ngSubmit)="f.form.valid && onSubmit()"
+            (ngSubmit)="f.form.valid && onSubmit(f.value)"
             #f="ngForm"
             novalidate
+            id="register"
+            [formGroup]="myGroup"
           >
             <mat-card-content>
                 <mat-form-field class="example-full-width">
                     
-                    <mat-select >
+                    <mat-select (selectionChange)="changeClient($event.value)" formControlName="role">
+
+                        <mat-option *ngFor="let role of Roles" [value]="role" >
+                            {{role.name}}
+                        </mat-option>
                         
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Username" name="username" ngModel required>
+                    <input matInput placeholder="Username" name="username" formControlName="username" ngModel required>
                 </mat-form-field>
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Email" name="email" ngModel required>
+                    <input matInput placeholder="Email" name="email" formControlName="email" ngModel required>
                 </mat-form-field>
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Password" name="password" ngModel required>
+                    <input matInput placeholder="Password" name="password" formControlName="password" ngModel required>
                 </mat-form-field>
             </mat-card-content>
-            <button type="submit" mat-stroked-button color="warn" class="btn-block">Register</button>
+            <input type="submit" value="Register" mat-stroked-button color="warn" class="btn-block" formControlName="submit">
         </form>
     </mat-card>
 </div>
