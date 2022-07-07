@@ -18,7 +18,7 @@ export class AuthUserService {
 
 
   createUser(username: string, email: string, password: string, is_superuser: any) {
-    return this.http.post<User>(baseUrl + 'users/', { username, email, password, is_superuser }, httpOptions);
+    return this.http.post<User>(baseUrl + 'users/', { username, email, password, is_superuser });
   }
 
   createCustomer(user: any){

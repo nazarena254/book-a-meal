@@ -44,4 +44,5 @@ class OrderSerializer(ModelSerializer):
 class MenuSerializer(ModelSerializer):
     class Meta:
         model = Menu
-        fields = '__all__'
+        fields = ('id', 'image', 'name', 'description', 'price', 'date')
+        extra_kwargs = {'price': {'required': True}, 'image': {'required': True}}
