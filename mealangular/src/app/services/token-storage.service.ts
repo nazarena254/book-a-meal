@@ -10,8 +10,26 @@ export class TokenStorageService {
 
   constructor() { }
 
+  password_key !: any;
+
   signOut() {
     window.sessionStorage.clear();
+  }
+
+  public saveUsername(username: string){
+    localStorage.setItem('username', JSON.stringify(username))
+  }
+
+  public getUsername(){
+    localStorage.getItem('username')
+  }
+
+  public savePassword(password: any){
+    localStorage.setItem('password', JSON.stringify(password));
+  }
+
+  public getPassword(){
+    return localStorage.getItem('password')
   }
 
   public saveToken(token: string): void {
