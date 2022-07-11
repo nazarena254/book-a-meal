@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './services/auth.service';
 import { PublicService } from './services/public.service';
 import { TokenStorageService } from './services/token-storage.service';
 
@@ -13,7 +14,7 @@ export class AppComponent {
   title = 'Book A Meal - The World\'s Best Food Delivery Site!';
   msg: any;
   isLoggedIn: boolean = false;
-  constructor (private pService: PublicService, public tokenStorage: TokenStorageService) {
+  constructor (private pService: PublicService, public tokenStorage: TokenStorageService, public authService: AuthService) {
 
   }
   ngOnInit(): void {
@@ -25,6 +26,13 @@ export class AppComponent {
 
     console.log(this.isLoggedIn);
   
+  }
+
+
+  Logout(){
+    this.authService.logout();
+    this.tokenStorage.signOut();
+    window.location.reload();    
   }
 
   LogOut(){
