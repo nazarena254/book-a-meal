@@ -16,20 +16,17 @@ export class TokenStorageService {
     window.sessionStorage.clear();
   }
 
-  public saveUsername(username: string){
-    localStorage.setItem('username', JSON.stringify(username))
+  public saveBasicAuth(username:any,password: any): void{
+    localStorage.removeItem('password')
+    localStorage.setItem('password', JSON.stringify(username + ':' + password));
   }
 
-  public getUsername(){
-    localStorage.getItem('username')
+  public getBasicAuth(){
+    return localStorage.getItem('password');
   }
 
-  public savePassword(password: any){
-    localStorage.setItem('password', JSON.stringify(password));
-  }
-
-  public getPassword(){
-    return localStorage.getItem('password')
+  public deleteAuth(){
+    localStorage.removeItem('password')
   }
 
   public saveToken(token: string): void {
