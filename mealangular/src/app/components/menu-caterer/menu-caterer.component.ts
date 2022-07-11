@@ -12,17 +12,20 @@ import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms'
 
 export class MenuCatererComponent implements OnInit {
 
-  menuForm = new FormGroup({
-    mealName: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    image: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    price: new FormControl('', [Validators.required]),
-  });
+  menuForm!: FormGroup;
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.menuForm = new FormGroup({
+      mealName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      image: new FormControl(''),
+      description: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      price: new FormControl('', [Validators.required]),
+    });
   }
+
+
 
   onSubmit(){
     // TODO: Use EventEmitter with form value
