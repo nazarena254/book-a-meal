@@ -1,5 +1,14 @@
 <div class="container-fluid menu-section">
     <h2 class="menu-heading text-center fw-bold">Available Menus</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 offset-md-10">
+                <a routerLink="/orders" class="button fancy-button ms-5 position-fixed position-absolute">
+                    <i class="material-icons">shopping_cart </i> {{items_count}}
+                  </a>
+            </div>
+        </div>
+    </div>
     <div class="menu-item row">
         <div class="col-md-6 mb-5" *ngFor="let menu of menuArray">
             <div class="menu1 pt-3 row">
@@ -11,6 +20,9 @@
                 </div>
                 <div class="col-md-4">
                     <button class="btn btn-warning price">Ksh {{menu.price}}</button>
+                    <form (ngSubmit)="addToCart([menu.id, menu.price, menu.name])">
+                        <button class="btn btn-primary" type="submit">Add to Cart</button>
+                    </form>
                 </div>
             </div>
         </div>

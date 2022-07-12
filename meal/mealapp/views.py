@@ -10,6 +10,7 @@ from rest_framework.permissions import IsAuthenticated,AllowAny, IsAdminUser
 from rest_framework import generics
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAdminUser
 from .permissions import IsAdminOrReadOnly
 from django.core.mail import send_mail
 
@@ -45,22 +46,20 @@ class CustomAuthToken(ObtainAuthToken):
 
 class UserView(APIView):
 
-   permission_classes = [AllowAny]
+    permission_classes = [AllowAny]
 
-   def get(self, request, format=None):
-    users = User.objects.all()
-    serializer = UserSerializer(users, many=True)
-    return Response(serializer.data)
+    def get(self, request, format=None):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
 
-   def post(self, request, format=None):
-    serializer = UserSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=201)
-    return Response(serializer.errors, status=400)
+    def post(self, request, format=None):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
     
-   
-
 class MenuView(APIView):
 
     permission_classes = [IsAdminOrReadOnly]
@@ -76,6 +75,23 @@ class MenuView(APIView):
             serializer.save(user=request.user)
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+
+# class OrderView(generics.ListCreateAPIView):
+
+#     serializer_class = OrderSerializer
+
+#     queryset = Menu.objects.all()    
+#     def get(self, request, format=None):
+#         queryset = Menu.objects.all()
+#         serializer = MenuSerializer(queryset, many=True)
+#         return Response(serializer.data)
+
+#     def post(self, request, format=None):
+#         serializer = MenuSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save(user=request.user)
+#             return Response(serializer.data, status=201)
+#         return Response(serializer.errors, status=400)
 
 class CustomerView(APIView):
 
@@ -103,10 +119,19 @@ class CatererView(APIView):
         serializer.save()
         return Response(serializer.data)
 
-    
+class OrderView(APIView):
 
-class OrderView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
 
-    serializer_class = OrderSerializer
+    def get(self, request, format=None):
+        queryset = Order.objects.all()
+        serializer = OrderSerializer(queryset, many=True)
+        return Response(serializer.data)
 
     queryset = Order.objects.all()
+    def post(self, request, format=None):
+        serializer = OrderSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)

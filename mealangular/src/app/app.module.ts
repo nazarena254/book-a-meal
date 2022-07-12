@@ -14,6 +14,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { MenuCatererComponent } from './components/menu-caterer/menu-caterer.component';
+import { OrderComponent } from './components/order/order.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { MenuCatererComponent } from './components/menu-caterer/menu-caterer.com
     ProfileComponent,
     MenuComponent,
     MenuCatererComponent,
+    OrderComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,7 +3,7 @@ import { AuthService } from './services/auth.service';
 import { PublicService } from './services/public.service';
 import { TokenStorageService } from './services/token-storage.service';
 
-declare var fixNav: any;
+// declare var fixNav: any;
 
 @Component({
   selector: 'app-root',
@@ -17,7 +17,7 @@ export class AppComponent {
 
   }
   ngOnInit(): void {
-   
+  
 
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
