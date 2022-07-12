@@ -2,7 +2,15 @@ from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 
+<<<<<<< HEAD
 # Create your models here
+=======
+# Create your models here.
+
+def upload_path(instance, filename):
+    return '/'.join(['menu', str(instance.name), filename])
+
+>>>>>>> a19004fde3e58864b7f67fb9e87a297bd18eb755
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
@@ -10,7 +18,7 @@ class Caterer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
 class Menu(models.Model):
-    image = CloudinaryField('image', default='')
+    image = models.ImageField(upload_to=upload_path, null=True, blank=True)
     name = models.CharField(max_length=300)
     description = models.TextField()
     price = models.DecimalField(max_digits=5, decimal_places=2, null=True )
