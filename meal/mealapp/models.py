@@ -2,15 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 
-<<<<<<< HEAD
 # Create your models here
-=======
-# Create your models here.
 
 def upload_path(instance, filename):
     return '/'.join(['menu', str(instance.name), filename])
 
->>>>>>> a19004fde3e58864b7f67fb9e87a297bd18eb755
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
