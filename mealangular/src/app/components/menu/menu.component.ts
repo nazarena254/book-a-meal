@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { catchError, throwError } from 'rxjs';
 import { Menus } from 'src/app/classes/menus';
+import { Order } from 'src/app/classes/order';
 import { Menu } from 'src/app/interface/menu';
+import { CartService } from 'src/app/services/cart.service';
 import { PublicService } from 'src/app/services/public.service';
 
 @Component({
@@ -17,10 +19,13 @@ export class MenuComponent implements OnInit {
   name!:string;
   description!:string;
   price!:any;
+  items : any[] = [];
+
+  items_count!:number;
 
   menuArray!: Menus[];
 
-  constructor(private publicservice: PublicService) { }
+  constructor(private publicservice: PublicService, private cartService: CartService) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -38,6 +43,9 @@ export class MenuComponent implements OnInit {
         console.log("error")
       }
     )
+
+    this.items = this.cartService.getItems();
+    this.items_count = this.cartService.getItemCount()
   
   }
   
@@ -81,6 +89,14 @@ export class MenuComponent implements OnInit {
     
   }
 
+  addToCart(menu: any){
+
+    this.cartService.addToCart(menu);
+    window.alert("Added to cart!");
+    this.items_count = this.cartService.getItemCount()
+
+  
+  }
 
 
 }

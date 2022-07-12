@@ -39,7 +39,7 @@ class CatererSerializer(ModelSerializer):
 class OrderSerializer(ModelSerializer):
     class Meta:
         model = Order
-        fields = '__all__'
+        fields = ('id', 'date', 'menu')
 
 class MenuSerializer(ModelSerializer):
     class Meta:

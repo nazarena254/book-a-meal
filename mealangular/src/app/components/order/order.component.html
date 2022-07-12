@@ -1,4 +1,4 @@
-<div class="container-fluid order-page">
+<div class="container-fluid order-page" >
     <div class="container-fluid">
         <div class="row pt-4">
             <div class="col-md-7 orders half">
@@ -87,72 +87,28 @@
                         <h4 class="fw-bold">Name</h4>
                     </div>
                     <div class="col-md-4">
-                        <p>Qty</p>
+                        <p>Id</p>
                     </div>
                     <div class="col-md-4">
                         <p>Price</p>
                     </div>
                 </div>
 
-                <div class="row ordersummary1">
-                    <div class="col-md-4">
-                        <h4 class="fw-bold">Name</h4>
-                    </div>
-                    <div class="col-md-4">
-                        <p>Qty</p>
-                    </div>
-                    <div class="col-md-4">
-                        <p>Price</p>
-                    </div>
-                </div>
-
-                <div class="row ordersummary1">
-                    <div class="col-md-4">
-                        <h4 class="fw-bold">Name</h4>
-                    </div>
-                    <div class="col-md-4">
-                        <p>Qty</p>
-                    </div>
-                    <div class="col-md-4">
-                        <p>Price</p>
+                <div>
+                    <div class="row ordersummary1" *ngFor="let item of items">
+                        <div class="col-md-4">
+                            <h4 class="fw-bold">{{item[2]}}</h4>
+                        </div>
+                        <div class="col-md-4">
+                            <p>{{item[0]}}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p>{{item[1]}}</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="row ordersummary1">
-                    <div class="col-md-4">
-                        <h4 class="fw-bold">Name</h4>
-                    </div>
-                    <div class="col-md-4">
-                        <p>Qty</p>
-                    </div>
-                    <div class="col-md-4">
-                        <p>Price</p>
-                    </div>
-                </div>
-
-                <div class="row ordersummary1">
-                    <div class="col-md-4">
-                        <h4 class="fw-bold">Name</h4>
-                    </div>
-                    <div class="col-md-4">
-                        <p>Qty</p>
-                    </div>
-                    <div class="col-md-4">
-                        <p>Price</p>
-                    </div>
-                </div>
-
-                <div class="row ordersummary1">
-                    <div class="col-md-4">
-                        <h4 class="fw-bold">Name</h4>
-                    </div>
-                    <div class="col-md-4">
-                        <p>Qty</p>
-                    </div>
-                    <div class="col-md-4">
-                        <p>Price</p>
-                    </div>
-                </div>
+               
 
                 <hr style="width: 77%;">
 

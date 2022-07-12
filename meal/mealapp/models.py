@@ -26,10 +26,15 @@ class Menu(models.Model):
         return self.name
 
 class Order(models.Model):
-    price = models.DecimalField(max_digits=5, decimal_places=2, null=True)
-    menu = models.ManyToManyField(Menu, related_name='orders')
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE, default='')
     date = models.DateTimeField(auto_now_add=True)
-    
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default='', null=True, blank=True)
+
+    def get_menu_count_by_menu_id(self, menu_id):
+        return self.objects.filter(menu_id=menu_id).count()
+
+    def __str__(self):
+        return str(self.menu.price)
     
     
 
