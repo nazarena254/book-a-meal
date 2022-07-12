@@ -119,9 +119,19 @@ class CatererView(APIView):
         serializer.save()
         return Response(serializer.data)
 
+class OrderView(APIView):
 
-class OrderView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
 
-    serializer_class = OrderSerializer
+    def get(self, request, format=None):
+        queryset = Order.objects.all()
+        serializer = OrderSerializer(queryset, many=True)
+        return Response(serializer.data)
 
     queryset = Order.objects.all()
+    def post(self, request, format=None):
+        serializer = OrderSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)

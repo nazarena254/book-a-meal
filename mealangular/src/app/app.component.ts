@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { PublicService } from './services/public.service';
 import { TokenStorageService } from './services/token-storage.service';
 
-declare var fixNav: any;
+// declare var fixNav: any;
 
 @Component({
   selector: 'app-root',

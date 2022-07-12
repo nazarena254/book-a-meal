@@ -5,9 +5,9 @@ import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { LandingComponent } from './components/landing/landing.component';
-import { OrderComponent } from './components/order/order.component';
 import { OrderCatererComponent } from './components/order-caterer/order-caterer.component';
 import { MenuCatererComponent } from './components/menu-caterer/menu-caterer.component';
+import { OrderComponent } from './components/order/order.component';
 
 const routes: Routes = [
   { path: 'login', component: LogInComponent },
