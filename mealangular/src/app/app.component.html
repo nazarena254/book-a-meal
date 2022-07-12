@@ -18,12 +18,12 @@
         <h1 class="logo"><a href="index.html">Book a Meal</a></h1>
         <ul>
             <li class="logo"><a routerLink="" routerLinkActive="active" class="current">Home</a></li>
-            <li><a href="#about-us">About</a></li>
-            <li><a routerLink="menu" routerLinkActive="active">Menu</a></li>
-            <li><a routerLink="login" routerLinkActive="active">Login</a></li>
-            <li><a routerLink="register" routerLinkActive="active">Register</a></li>
-            <li (click)="Logout()"><a routerLink="" routerLinkActive="active">Log Out</a></li>
-            <li><a href="#">Profile</a></li>
+            <li *ngIf="isLoggedIn==true"><a href="#about-us">About</a></li>
+            <li *ngIf="isLoggedIn==true"><a routerLink="menu" routerLinkActive="active">Menu</a></li>
+            <li *ngIf="isLoggedIn==false"><a routerLink="login" routerLinkActive="active">Login</a></li>
+            <li *ngIf="isLoggedIn==false"><a routerLink="register" routerLinkActive="active">Register</a></li>
+            <li *ngIf="isLoggedIn==true"><a href="orders">Orders</a></li>
+            <li *ngIf="isLoggedIn==true"><a routerLink="landing" (click)="LogOut()">Log Out</a></li>
         </ul>
     </div>
 </nav>

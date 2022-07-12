@@ -51,6 +51,7 @@ export class LogInComponent implements OnInit {
 
 
   onSubmit() {
+    this.tokenStorage.saveBasicAuth(this.f['username'].value,this.f['password'].value);
     this.authService.loginUser(this.f['username'].value, this.f['password'].value).pipe(catchError(this.handleError), first()).subscribe(
       data => {
         this.tokenStorage.saveToken(data.token);
