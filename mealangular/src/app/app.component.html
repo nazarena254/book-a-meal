@@ -1,7 +1,7 @@
 <!-- Toolbar -->
 <mat-toolbar color="warn" class="app-header">
-  <h2 class="meal">Book-a-meal</h2>
-  <nav class="nav">
+<h2 class="meal">Book-a-meal</h2>
+<nav class="nav">
     <div class="container nav-container">
         <h1 class="logo"><a href="index.html">Book a Meal</a></h1>
         <ul>
@@ -11,7 +11,7 @@
             <li *ngIf="isLoggedIn==false"><a routerLink="login" routerLinkActive="active">Login</a></li>
             <li *ngIf="isLoggedIn==false"><a routerLink="register" routerLinkActive="active">Register</a></li>
             <li *ngIf="isLoggedIn==true"><a routerLink="landing" (click)="LogOut()">Log Out</a></li>
-            <li *ngIf="isLoggedIn==true"><a href="#">Profile</a></li>
+            <li *ngIf="isLoggedIn==true"><a href="/order">Order</a></li>
         </ul>
     </div>
 </nav>
