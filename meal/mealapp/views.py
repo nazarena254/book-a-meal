@@ -60,20 +60,10 @@ class UserView(APIView):
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
     
-
-
 class MenuView(APIView):
 
     permission_classes = [IsAdminOrReadOnly]
 
-    queryset = Menu.objects.all()
-    permission_classes = [IsAdminUser]
-
-class OrderView(generics.ListCreateAPIView):
-
-    serializer_class = OrderSerializer
-
-    queryset = Menu.objects.all()    
     def get(self, request, format=None):
         queryset = Menu.objects.all()
         serializer = MenuSerializer(queryset, many=True)
@@ -85,6 +75,23 @@ class OrderView(generics.ListCreateAPIView):
             serializer.save(user=request.user)
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+
+# class OrderView(generics.ListCreateAPIView):
+
+#     serializer_class = OrderSerializer
+
+#     queryset = Menu.objects.all()    
+#     def get(self, request, format=None):
+#         queryset = Menu.objects.all()
+#         serializer = MenuSerializer(queryset, many=True)
+#         return Response(serializer.data)
+
+#     def post(self, request, format=None):
+#         serializer = MenuSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save(user=request.user)
+#             return Response(serializer.data, status=201)
+#         return Response(serializer.errors, status=400)
 
 class CustomerView(APIView):
 
@@ -112,9 +119,19 @@ class CatererView(APIView):
         serializer.save()
         return Response(serializer.data)
 
+class OrderView(APIView):
 
-class OrderView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
 
-    serializer_class = OrderSerializer
+    def get(self, request, format=None):
+        queryset = Order.objects.all()
+        serializer = OrderSerializer(queryset, many=True)
+        return Response(serializer.data)
 
     queryset = Order.objects.all()
+    def post(self, request, format=None):
+        serializer = OrderSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)

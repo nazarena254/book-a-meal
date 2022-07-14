@@ -1,54 +1,75 @@
 <div class="container-fluid menu-section">
     <h2 class="menu-heading text-center fw-bold">Available Menus</h2>
-    <div class="menu-item row">
-        <div class="col-md-6">
-            <div class="menu1 pt-3 row">
-                <div class="col-md-3 menu1-img"></div>
-                <div class="col-md-5 menu-desc">
-                    <h4 class="fw-bold">Pilau</h4>
-                    <p>Beef Pilau and vegetables.</p>
-                    <p style="color: #000">posted on: 24 May 2022</p>
-                </div>
-                <div class="col-md-4">
-                    <button class="btn btn-warning price">Ksh 300</button>
-                </div>
-            </div>
-            <div class="menu1 pt-3 row">
-                <div class="col-md-3 menu1-img"></div>
-                <div class="col-md-5 menu-desc">
-                    <h4 class="fw-bold">Pilau</h4>
-                    <p>Beef Pilau and vegetables.</p>
-                    <p style="color: #000">posted on: 24 May 2022</p>
-                </div>
-                <div class="col-md-4">
-                    <button class="btn btn-warning price">Ksh 300</button>
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 offset-md-10">
+                <a routerLink="/orders" class="button fancy-button ms-5 position-fixed position-absolute">
+                    <i class="material-icons">shopping_cart </i> {{items_count}}
+                  </a>
             </div>
         </div>
-        <div class="col-md-6">
+    </div>
+    <div class="menu-item row">
+        <div class="col-md-6 mb-5" *ngFor="let menu of menuArray">
             <div class="menu1 pt-3 row">
-                <div class="col-md-3 menu1-img"></div>
-                <div class="col-md-5 menu-desc">
-                    <h4 class="fw-bold">Pilau</h4>
-                    <p>Beef Pilau and vegetables.</p>
-                    <p style="color: #000">posted on: 24 May 2022</p>
+                <div class="col-md-3 menu1-img" style="background-image: url('http://127.0.0.1:8000{{menu.image}}');"></div>
+                <div class="col-md-6 menu-desc">
+                    <h4 class="fw-bold">{{menu.name}}</h4>
+                    <p>{{menu.description}}</p>
+                    <p style="color: #000">posted on: {{menu.date | date}} at {{ menu.date | date:'shortTime' }}</p>
                 </div>
                 <div class="col-md-4">
-                    <button class="btn btn-warning price">Ksh 300</button>
-                </div>
-            </div>
-            <div class="menu1 pt-3 row">
-                <div class="col-md-3 menu1-img"></div>
-                <div class="col-md-5 menu-desc">
-                    <h4 class="fw-bold">Pilau</h4>
-                    <p>Beef Pilau and vegetables.</p>
-                    <p style="color: #000">posted on: 24 May 2022</p>
-                </div>
-                <div class="col-md-4">
-                    <button class="btn btn-warning price">Ksh 300</button>
+                    <button class="btn btn-warning price">Ksh {{menu.price}}</button>
+                    <form (ngSubmit)="addToCart([menu.id, menu.price, menu.name])">
+                        <button class="btn btn-primary" type="submit">Add to Cart</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
     
 </div>
+
+<form enctype="multipart/form-data" [formGroup]="form" (ngSubmit)="onSubmit()" class="bg-dark text-light pt-3">
+    <div class="form-group w-50 offset-3 mt-3">
+        <label for="image">Image</label>
+        <input type="file" 
+        name="image" 
+        id="image"
+        formControlName="image"
+        class="form-control"
+        (change)="onImageChange($event)"
+        >
+    </div>
+    <div class="form-group w-50 offset-3 mt-3">
+        <label for="name">Name</label>
+        <input type="text" 
+        name="name" 
+        id="name"
+        formControlName="name"
+        class="form-control"
+        (change)="onNameChange($event)"
+        >
+    </div>
+    <div class="form-group w-50 offset-3 mt-3">
+        <label for="description">Description</label>
+        <input type="text" 
+        name="description" 
+        id="description"
+        formControlName="description"
+        class="form-control"
+        (change)="onDescriptionChange($event)"
+        >
+    </div>
+    <div class="form-group w-50 offset-3 mt-3">
+        <label for="price">Price</label>
+        <input type="number" 
+        name="price" 
+        id="price"
+        formControlName="price"
+        class="form-control"
+        (change)="onPriceChange($event)"
+        >
+    </div>
+    <input class="offset-5 mb-5 mt-3 btn btn-light" type="submit" value="Add Menu">
+</form>
