@@ -9,7 +9,7 @@ import { Order } from '../classes/order';
   providedIn: 'root'
 })
 export class PublicService {
-  api_url = 'http://127.0.0.1:8000/api/';
+  api_url = 'https://book-a-meal-xd.herokuapp.com/api/';
   menuArray!: Menus[];
 
   constructor(private http: HttpClient, private tokenStorage: TokenStorageService) { }
