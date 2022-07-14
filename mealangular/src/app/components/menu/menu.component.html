@@ -12,7 +12,7 @@
     <div class="menu-item row">
         <div class="col-md-6 mb-5" *ngFor="let menu of menuArray">
             <div class="menu1 pt-3 row">
-                <div class="col-md-3 menu1-img" style="background-image: url('https://book-a-meal-xd.herokuapp.com/{{menu.image}}');"></div>
+                <div class="col-md-3 menu1-img" style="background-image: url('https://book-a-meal-xd.herokuapp.com{{menu.image}}');"></div>
                 <div class="col-md-6 menu-desc">
                     <h4 class="fw-bold">{{menu.name}}</h4>
                     <p>{{menu.description}}</p>
