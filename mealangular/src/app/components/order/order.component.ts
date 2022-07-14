@@ -34,7 +34,7 @@ export class OrderComponent implements OnInit {
 handleError(error: any) {
   alert(error.error[Object.keys(error.error)[0]]);
   return throwError(error);
-}
+
 
 addOrders(){
   let items = this.cartService.getItems();
@@ -54,5 +54,6 @@ addOrders(){
   window.location.href = "/"
 
 }
+
 
 }
