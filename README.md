@@ -17,9 +17,9 @@ $ git clone https://github.com/blancc-page/book-a-meal
 
 ## Angular Setup
 ```bash
-- $ cd book-a-meal/mealangular
-- $ ng serve. 
-- $ Navigate to http://localhost:4200/. The application will automatically reload if you change any of the source files.
+$ cd book-a-meal/mealangular
+$ ng serve. 
+$ Navigate to http://localhost:4200/. The application will automatically reload if you change any of the source files.
 ```
 
 ## Django Setup
