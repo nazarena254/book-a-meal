@@ -34,6 +34,26 @@ export class OrderComponent implements OnInit {
 handleError(error: any) {
   alert(error.error[Object.keys(error.error)[0]]);
   return throwError(error);
+<<<<<<< HEAD
+=======
+}
+
+addOrders(){
+  let items = this.cartService.getItems();
+
+  items.map(item => {
+    this.publicService.addOrder(item[0]).pipe(
+      catchError(this.handleError)
+    ).subscribe(
+      data=>{
+        console.log(data);
+      }
+    )
+
+  })
+}
+
+>>>>>>> 583a6588663034b7869cfbd02dc4bf43e6884361
 }
 
 addOrders(){
