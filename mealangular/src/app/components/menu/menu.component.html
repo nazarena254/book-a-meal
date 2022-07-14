@@ -3,8 +3,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-2 offset-md-10">
-                <a routerLink="/orders" class="button fancy-button ms-5 position-fixed position-absolute">
-                    <i class="material-icons">shopping_cart </i> {{items_count}}
+                <a routerLink="/orders" class="button fancy-button ms-5 position-fixed position-absolute cart-form">
+                    <i class="material-icons">shopping_cart</i> Cart({{items_count}})
                   </a>
             </div>
         </div>
@@ -18,10 +18,10 @@
                     <p>{{menu.description}}</p>
                     <p style="color: #000">posted on: {{menu.date | date}} at {{ menu.date | date:'shortTime' }}</p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 menu-btn">
                     <button class="btn btn-warning price">Ksh {{menu.price}}</button>
-                    <form (ngSubmit)="addToCart([menu.id, menu.price, menu.name])">
-                        <button class="btn btn-primary" type="submit">Add to Cart</button>
+                    <form (ngSubmit)="addToCart([menu.id, menu.price, menu.name, menu.description, menu.image])">
+                        <button style="margin-top: 5px; background-color: #FB6357" class="btn add-to-cart" type="submit">Add to Cart</button>
                     </form>
                 </div>
             </div>
