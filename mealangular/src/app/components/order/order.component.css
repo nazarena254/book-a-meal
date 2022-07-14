@@ -1,0 +1,18 @@
+.menu1-img{
+    content: " ";
+    height: 130px;
+    width: 130px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom center;
+}
+
+.half{
+    padding: 7% 7%;
+    overflow-x: hidden;
+}
+
+.order-page{
+    overflow-y: hidden;
+    min-height: 100vh;
+}

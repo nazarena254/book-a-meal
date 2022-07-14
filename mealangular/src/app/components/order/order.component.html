@@ -3,76 +3,17 @@
         <div class="row pt-4">
             <div class="col-md-7 orders half">
                 <div class="row">
-                    <h3 class="text-center">Orders</h3>
-                    <div class="menu1 pt-3 row">
-                        <div class="col-md-3 menu1-img"></div>
-                        <div class="col-md-5 menu-desc">
-                            <h4 class="fw-bold">Pilau</h4>
-                            <p>Beef Pilau and vegetables.</p>
-                            <p style="color: #000">posted on: 24 May 2022</p>
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-warning price">Ksh 300</button>
-                        </div>
-                    </div>
+                    <h3 class="text-center fw-bold">Orders</h3>
 
-                    <div class="menu1 pt-3 row">
-                        <div class="col-md-3 menu1-img"></div>
+                    <div class="menu1 pt-3 row" *ngFor="let item of items">
+                        <div class="col-md-3 menu1-img" style="background-image: url('http://127.0.0.1:8000{{item[4]}}');"></div>
                         <div class="col-md-5 menu-desc">
-                            <h4 class="fw-bold">Pilau</h4>
-                            <p>Beef Pilau and vegetables.</p>
-                            <p style="color: #000">posted on: 24 May 2022</p>
+                            <h4 class="fw-bold">{{item[2]}}</h4>
+                            <p>{{item[3]}}</p>
+                            <!-- <p style="color: #000">posted on: 24 May 2022</p> -->
                         </div>
                         <div class="col-md-4">
-                            <button class="btn btn-warning price">Ksh 300</button>
-                        </div>
-                    </div>
-
-                    <div class="menu1 pt-3 row">
-                        <div class="col-md-3 menu1-img"></div>
-                        <div class="col-md-5 menu-desc">
-                            <h4 class="fw-bold">Pilau</h4>
-                            <p>Beef Pilau and vegetables.</p>
-                            <p style="color: #000">posted on: 24 May 2022</p>
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-warning price">Ksh 300</button>
-                        </div>
-                    </div>
-
-                    <div class="menu1 pt-3 row">
-                        <div class="col-md-3 menu1-img"></div>
-                        <div class="col-md-5 menu-desc">
-                            <h4 class="fw-bold">Pilau</h4>
-                            <p>Beef Pilau and vegetables.</p>
-                            <p style="color: #000">posted on: 24 May 2022</p>
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-warning price">Ksh 300</button>
-                        </div>
-                    </div>
-
-                    <div class="menu1 pt-3 row">
-                        <div class="col-md-3 menu1-img"></div>
-                        <div class="col-md-5 menu-desc">
-                            <h4 class="fw-bold">Pilau</h4>
-                            <p>Beef Pilau and vegetables.</p>
-                            <p style="color: #000">posted on: 24 May 2022</p>
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-warning price">Ksh 300</button>
-                        </div>
-                    </div>
-
-                    <div class="menu1 pt-3 row">
-                        <div class="col-md-3 menu1-img"></div>
-                        <div class="col-md-5 menu-desc">
-                            <h4 class="fw-bold">Pilau</h4>
-                            <p>Beef Pilau and vegetables.</p>
-                            <p style="color: #000">posted on: 24 May 2022</p>
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-warning price">Ksh 300</button>
+                            <button class="btn btn-warning price">Ksh{{item[1]}}</button>
                         </div>
                     </div>
                 </div>
@@ -81,7 +22,7 @@
             <hr style="transform: rotate(90deg); position: absolute; width: 40%; right: 30%; top: 75%;">
             
             <div class="col-md-5 order-summary half">
-                <h3 class="text-center" style="margin-bottom: 30px;">Order Summary</h3>
+                <h3 class="text-center fw-bold" style="margin-bottom: 30px;">Order Summary</h3>
                 <div class="row ordersummary1">
                     <div class="col-md-4">
                         <h4 class="fw-bold">Name</h4>
@@ -113,11 +54,13 @@
                 <hr style="width: 77%;">
 
                 <div class="row total-price">
-                    <p style="font-size: 30px; font-weight: 900; margin: 25px 0; margin-left: 50%;">{{totalPrice}}</p>
+                    <p style="font-size: 30px; font-weight: 900; margin: 25px 0; margin-left: 50%;">Ksh{{totalPrice}}</p>
                 </div>
 
                 <div class="row order-btn">
-                    <button type="submit" class="btn btn-warning">Order Now</button>
+                    <form (ngSubmit) ="addOrders()">
+                        <button type="submit" class="btn btn-warning">Order Now</button>
+                    </form>
                 </div>
 
 

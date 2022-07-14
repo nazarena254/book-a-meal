@@ -13,6 +13,7 @@ export class TokenStorageService {
   password_key !: any;
 
   signOut() {
+    localStorage.removeItem('currentUser');
     window.sessionStorage.clear();
   }
 
