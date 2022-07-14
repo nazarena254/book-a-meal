@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { catchError, throwError } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
+import { PublicService } from 'src/app/services/public.service';
 
 @Component({
   selector: 'app-order',
@@ -11,7 +13,7 @@ export class OrderComponent implements OnInit {
   items: any[] = [];
   totalPrice: number = 0;
 
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService, private publicService: PublicService) { }
 
   ngOnInit(): void {
     this.items = this.cartService.getItems();
@@ -27,6 +29,26 @@ export class OrderComponent implements OnInit {
     console.log(this.totalPrice);
     return this.totalPrice;
 
+}
+
+handleError(error: any) {
+  alert(error.error[Object.keys(error.error)[0]]);
+  return throwError(error);
+}
+
+addOrders(){
+  let items = this.cartService.getItems();
+
+  items.map(item => {
+    this.publicService.addOrder(item[0]).pipe(
+      catchError(this.handleError)
+    ).subscribe(
+      data=>{
+        console.log(data);
+      }
+    )
+
+  })
 }
 
 }
