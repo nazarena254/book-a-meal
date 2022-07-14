@@ -117,7 +117,9 @@
                 </div>
 
                 <div class="row order-btn">
-                    <button type="submit" class="btn btn-warning">Order Now</button>
+                    <form (ngSubmit)="addOrders()">
+                        <button type="submit" class="btn btn-warning">Order Now</button>
+                    </form>
                 </div>
 
 

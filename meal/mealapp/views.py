@@ -135,3 +135,13 @@ class OrderView(APIView):
             serializer.save(user=request.user)
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+
+class OrderDetailView(APIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk, format=None):
+        order = Order.get_menu_count_by_menu_id(pk)
+        serializer = OrderSerializer(order)
+        return Response(serializer.data)
+
