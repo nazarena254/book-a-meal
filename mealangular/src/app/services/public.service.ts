@@ -62,6 +62,10 @@ export class PublicService {
   
   }
 
+  // addOrder(menu_id: any){
+  //   this.http.post(this.api_url + "order/", {menu_id}, this.httpOptions)
+  // }
+
 
   
 }
