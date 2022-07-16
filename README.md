@@ -71,6 +71,10 @@ Open the application on your browser `127.0.0.1:8000`.
 
 - GitHub: [@githubhandle](https://github.com/blancc-page)
 
+👤 **Nazarena Wambura**
+
+- GitHub: [@githubhandle](https://github.com/nazarena254)
+
 👤 **Charlotte Natasha Onyango**
 
 - GitHub: [@githubhandle](https://github.com/Charlotte-Natasha)
@@ -82,10 +86,6 @@ Open the application on your browser `127.0.0.1:8000`.
 👤 **Jacqueline Ngabo**
 
 - GitHub: [@githubhandle](https://github.com/jay-ngabo)
-
-👤 **Nazarena Wambura**
-
-- GitHub: [@githubhandle](https://github.com/nazarena254)
 
 
 
