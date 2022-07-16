@@ -14,7 +14,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthService {
-  api_url: string = 'http://127.0.0.1:8000/api-auth/';
+  api_url: string = 'https://book-a-meal-xd.herokuapp.com/api-auth/';
 
   constructor(private http: HttpClient) { }
 

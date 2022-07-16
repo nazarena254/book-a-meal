@@ -55,22 +55,4 @@ addOrders(){
 
 }
 
-// addOrders(){
-//   let items = this.cartService.getItems();
-
-//   items.map(item => {
-//     this.publicService.addOrder(item[0]).pipe(
-//       catchError(this.handleError)
-//     ).subscribe(
-//       (data: any)=>{
-//         console.log(data);
-//       }
-//     )
-
-//   })
-
-//   alert("Your order(s) have been placed!")
-//   window.location.href = "/"
-
-// }
 
