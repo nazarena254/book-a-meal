@@ -49,6 +49,8 @@ addOrders(){
     )
 
   })
+  alert("Your order(s) have been placed!")
+  window.location.href = "/"
 }
 
 }
