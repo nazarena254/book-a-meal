@@ -1,14 +1,35 @@
 # Book A Meal
-
 > A meal delivery service.
 
-## :hammer: Built With
+### Live links
+[Frontend](https://book-a-meal.vercel.app/) <br>
+[Backend](https:book-a-meal-xd.herokuapp.com)
 
+### :hammer: Built With
 - HTML, CSS, Angular
 - Python, Django, PostgreSQL
 
-### :computer: Setup
-To get a local copy up and running follow these simple example steps.
+### :trollface: Authors
+
+👤 **Moses Muta**
+
+- GitHub: [@githubhandle](https://github.com/blancc-page)
+
+👤 **Nazarena Wambura**
+
+- GitHub: [@githubhandle](https://github.com/nazarena254)
+
+👤 **Charlotte Natasha Onyango**
+
+- GitHub: [@githubhandle](https://github.com/Charlotte-Natasha)
+
+👤 **James Njoroge**
+
+- GitHub: [@githubhandle](https://github.com/devjamesnjoroge)
+
+👤 **Jacqueline Ngabo**
+
+- GitHub: [@githubhandle](https://github.com/jay-ngabo)
 
 ##### Cloning the repository:  
  ```bash 
